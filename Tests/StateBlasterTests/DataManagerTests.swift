@@ -81,7 +81,7 @@ import os.log
     let dataManager = DoorDataManager<
       AuthenticatorMock.GetCredentialResult, SignInResultMock, String, AuthenticatorMock
     >(
-      coreDataManager: DoorCoreDataManager(persistentStoreType: .inMemory1),
+      coreDataManager: DoorCoreDataManager(persistentStoreType: .inMemory),
       remoteDataManager: .makeMock(urlSessionConfiguration: urlSessionConfiguration, logger: logger),
       authenticator: AuthenticatorMock(),
       logger: logger,
