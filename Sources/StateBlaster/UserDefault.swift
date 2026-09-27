@@ -28,64 +28,64 @@ SOFTWARE.
 
 @propertyWrapper
 public struct UserDefault<Value: RawRepresentable> where Value.RawValue == String {
-    public let key: String
-    public let store: UserDefaults
+  public let key: String
+  public let store: UserDefaults
 
-    public var wrappedValue: Value? {
-        get {
-            guard let value = store.object(forKey: key) as? Value.RawValue else {
-                return nil
-            }
-            return Value(rawValue: value)
-        }
-        set {
-            store.set(newValue?.rawValue, forKey: key)
-        }
+  public var wrappedValue: Value? {
+    get {
+      guard let value = store.object(forKey: key) as? Value.RawValue else {
+        return nil
+      }
+      return Value(rawValue: value)
     }
+    set {
+      store.set(newValue?.rawValue, forKey: key)
+    }
+  }
 }
 
 extension String: RawRepresentable {
-    public var rawValue: String {
-        self
-    }
+  public var rawValue: String {
+    self
+  }
 
-    public init?(rawValue: String) {
-        self = rawValue
-    }
+  public init?(rawValue: String) {
+    self = rawValue
+  }
 }
 
 @propertyWrapper
 public struct BoolUserDefault<Value: RawRepresentable> where Value.RawValue == Bool {
-    public let key: String
-    public let store: UserDefaults
+  public let key: String
+  public let store: UserDefaults
 
-    public var wrappedValue: Bool {
-        get {
-            store.bool(forKey: key)
-        }
-        set {
-            store.set(newValue.rawValue, forKey: key)
-        }
+  public var wrappedValue: Bool {
+    get {
+      store.bool(forKey: key)
     }
-
-    public init(
-        key: String,
-        defaultValue: Value,
-        store: UserDefaults
-    ) {
-        self.key = key
-        self.store = store
-
-        store.register(defaults: [key: defaultValue])
+    set {
+      store.set(newValue.rawValue, forKey: key)
     }
+  }
+
+  public init(
+    key: String,
+    defaultValue: Value,
+    store: UserDefaults
+  ) {
+    self.key = key
+    self.store = store
+
+    store.register(defaults: [key: defaultValue])
+  }
 }
 
 extension Bool: RawRepresentable {
-    public var rawValue: Bool {
-        self
-    }
+  public var rawValue: Bool {
+    self
+  }
 
-    public init?(rawValue: Bool) {
-        self = rawValue
-    }
+  public init?(rawValue: Bool) {
+    self = rawValue
+  }
 }

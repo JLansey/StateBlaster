@@ -8,18 +8,18 @@
 import Foundation
 
 public final class DataCache {
-    let cache = NSCache<NSString, NSData>()
+  let cache = NSCache<NSString, NSData>()
 
-    public init() {}
+  public init() {}
 
-    public func set(data: Data, forKey key: String) {
-        cache.setObject(data as NSData, forKey: key as NSString)
+  public func set(data: Data, forKey key: String) {
+    cache.setObject(data as NSData, forKey: key as NSString)
+  }
+
+  public func data(forKey key: String) -> Data? {
+    guard let data = cache.object(forKey: key as NSString) else {
+      return nil
     }
-
-    public func data(forKey key: String) -> Data? {
-        guard let data = cache.object(forKey: key as NSString) else {
-            return nil
-        }
-        return data as Data
-    }
+    return data as Data
+  }
 }

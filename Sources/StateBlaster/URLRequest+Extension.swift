@@ -8,10 +8,10 @@
 import Foundation
 
 extension URLRequest {
-    // TODO: implement
-    public init(url: URL, mimeType: String, imageData: Data) {
-        self.init(url: url)
-        self.httpMethod = "POST"
-        self.httpBody = imageData
-    }
+  // TODO: implement
+  public init(url: URL, mimeType: String, imageData: Data) {
+    self.init(url: url)
+    self.httpMethod = "POST"
+    self.httpBody = imageData
+  }
 }
