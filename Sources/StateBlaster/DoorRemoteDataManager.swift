@@ -28,7 +28,7 @@ extension URLRequest {
     }
 }
 
-public final class RemoteDataManager {
+public final class DoorRemoteDataManager {
     let urlSession: URLSession
     let baseUrl: URL
     public let apiKey: String

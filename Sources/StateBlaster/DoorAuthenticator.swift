@@ -11,7 +11,7 @@ public protocol SignInResultProtocol: Sendable {
     var authUserId: String { get }
 }
 
-public protocol Authenticator {
+public protocol DoorAuthenticator {
     associatedtype GetCredentialResult
     associatedtype SignInResult: SignInResultProtocol
     associatedtype APNSTokenType
@@ -37,7 +37,7 @@ public protocol Authenticator {
     var fcmToken: String? { get }
 }
 
-public extension Authenticator {
+public extension DoorAuthenticator {
     func getIdToken() async throws -> String {
         try await withCheckedThrowingContinuation { continuation in
             self.getIdToken {

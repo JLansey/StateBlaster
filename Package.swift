@@ -35,8 +35,11 @@ let package = Package(
 
         // Library that exposes a macro as part of its API, which is used in client programs.
         .target(
-            name: "StateBlaster", 
+            name: "StateBlaster",
             dependencies: ["StateBlasterMacros"],
+            resources: [
+                .process("Resources"),
+            ],
             swiftSettings: [
                 .enableUpcomingFeature("ApproachableConcurrency"),
                 .defaultIsolation(.some(MainActor.self)),
@@ -57,12 +60,17 @@ let package = Package(
         .testTarget(
             name: "StateBlasterTests",
             dependencies: [
+                "StateBlaster",
                 "StateBlasterMacros",
                 .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax"),
+            ],
+            resources: [
+                .process("Resources"),
             ],
             swiftSettings: [
                 .enableUpcomingFeature("ApproachableConcurrency"),
             ],
         ),
-    ]
+    ],
+    swiftLanguageModes: [.v5],
 )

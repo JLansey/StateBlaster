@@ -9,12 +9,12 @@ import CoreData
 import Foundation
 import os.log
 
-public final class DataManager<Credential, SignInResult, APNSTokenType, AuthenticatorType> where AuthenticatorType: Authenticator, AuthenticatorType.GetCredentialResult == Credential, AuthenticatorType.APNSTokenType == APNSTokenType {
+public final class DoorDataManager<Credential, SignInResult, APNSTokenType, AuthenticatorType> where AuthenticatorType: DoorAuthenticator, AuthenticatorType.GetCredentialResult == Credential, AuthenticatorType.APNSTokenType == APNSTokenType {
     public let userDefaults: UserDefaults
     public let notificationCenter: NotificationCenter
     public let logger: Logger
-    public let coreDataManager: CoreDataManager
-    private let remoteDataManager: RemoteDataManager
+    public let coreDataManager: DoorCoreDataManager
+    private let remoteDataManager: DoorRemoteDataManager
     public let authenticator: AuthenticatorType
     let blobCache: DataCache
     let isLegacyUser: Bool
@@ -28,7 +28,7 @@ public final class DataManager<Credential, SignInResult, APNSTokenType, Authenti
     @BoolUserDefault<Bool> public var didShowWhatIsNewDialog: Bool
     @UserDefault public internal(set) var userId: UserId?
 
-    public init(coreDataManager: CoreDataManager, remoteDataManager: RemoteDataManager, authenticator: AuthenticatorType, logger: Logger, userDefaults: UserDefaults, notificationCenter: NotificationCenter, blobCache: DataCache) {
+    public init(coreDataManager: DoorCoreDataManager, remoteDataManager: DoorRemoteDataManager, authenticator: AuthenticatorType, logger: Logger, userDefaults: UserDefaults, notificationCenter: NotificationCenter, blobCache: DataCache) {
         self.userDefaults = userDefaults
         self.logger = logger
         self.coreDataManager = coreDataManager

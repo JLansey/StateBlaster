@@ -279,3 +279,7 @@ extension Data {
     }
 }
 
+
+extension StateBlaster.RemoteUser: Hashable {
+    
+}
