@@ -1,3 +1,10 @@
+//
+//  DoorModels.swift
+//  StateBlaster
+//
+//  Created by Francis Lazenka on 9/27/26.
+//
+
 import Foundation
 
 public enum AppState {
@@ -204,6 +211,53 @@ public enum DataManagerError: Error {
     case missingPushKeys
 }
 
+
+public enum KnockType {
+    case sent(Direction, Date)
+    case received(Direction, Date)
+    case acknowledged(Direction, Date)
+
+    public struct Direction {
+        public let sourceUserId: UUID
+        public let destinationUserId: UUID
+    }
+
+    public var direction: Direction {
+        switch self {
+        case let .sent(direction, _),
+             let .acknowledged(direction, _),
+             let .received(direction, _):
+            direction
+        }
+    }
+
+    public var date: Date {
+        switch self {
+        case let .sent(_, date),
+             let .acknowledged(_, date),
+             let .received(_, date):
+            date
+        }
+    }
+}
+
+public extension KnockType {
+    init(notificationType: NotificationType, direction: Direction, date: Date) {
+        switch notificationType {
+        case .knock:
+            self = .received(direction, date)
+        case .ack:
+            self = .acknowledged(direction, date)
+        }
+    }
+
+    enum NotificationType: String {
+        case ack = "ack"
+        case knock = "knock"
+    }
+}
+
+
 public extension String {
     var sha256: String? {
         guard let data = data(using: .utf8) else {
@@ -224,3 +278,4 @@ extension Data {
         return Data(hash)
     }
 }
+
